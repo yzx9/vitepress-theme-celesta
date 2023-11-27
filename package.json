@@ -2,21 +2,59 @@
   "name": "vitepress-theme-celesta",
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-    "build": "tsc --build",
-    "build-watch": "tsc --build --watch"
+  "packageManager": "pnpm@8.11.0",
+  "author": "Zexin Yuan",
+  "license": "MIT",
+  "homepage": "https://github.com/yzx9/vitepress-theme-celesta/tree/main/#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuejs/vitepress.git"
   },
-  "dependencies": {
-    "vue": "^3.3.8"
+  "keywords": [
+    "blog",
+    "vitepress",
+    "theme"
+  ],
+  "main": "dist/theme/index.js",
+  "types": "types/theme/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/theme.js",
+      "types": "./types/theme/index.d.ts",
+      "default": "./dist/theme.js"
+    },
+    "./dist/*": "./dist/*",
+    "./package.json": "./package.json",
+    "./theme": {
+      "import": "./dist/theme.js",
+      "types": "./types/theme/index.d.ts",
+      "default": "./dist/theme.js"
+    }
+  },
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "build": "vue-tsc --noEmit -p src/theme && vite build"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@types/node": "^20.10.0",
-    "rollup": "^4.5.2",
-    "rollup-plugin-dts": "^6.1.0",
-    "rollup-plugin-esbuild": "^6.1.0",
+    "@vitejs/plugin-vue": "^4.5.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "postcss-import": "^15.1.0",
+    "postcss-nesting": "^12.0.1",
+    "rimraf": "^5.0.5",
+    "tailwindcss": "^3.3.5",
     "typescript": "^5.2.2",
+    "vite": "^5.0.2",
     "vitepress": "1.0.0-rc.31",
+    "vue": "^3.3.9",
     "vue-tsc": "^1.8.22"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.9"
   }
 }

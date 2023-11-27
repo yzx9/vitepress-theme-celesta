@@ -1,0 +1,19 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "moduleResolution": "bundler",
+        "jsx": "preserve",
+        "lib": [
+            "esnext",
+            "dom",
+            "dom.iterable"
+        ],
+        "types": [
+            "vite/client"
+        ]
+    },
+    "include": [
+        "."
+    ]
+}
