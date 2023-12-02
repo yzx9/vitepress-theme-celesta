@@ -9,6 +9,8 @@ const { page, frontmatter } = useData()
 
 <template>
   <NotFound v-if="page.isNotFound" />
+
   <Home v-else-if="frontmatter.layout === 'home'" />
+
   <Page v-else />
 </template>

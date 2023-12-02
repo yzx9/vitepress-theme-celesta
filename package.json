@@ -8,7 +8,7 @@
   "homepage": "https://github.com/yzx9/vitepress-theme-celesta/tree/main/#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vuejs/vitepress.git"
+    "url": "git+https://github.com/yzx9/vitepress-theme-celesta.git"
   },
   "keywords": [
     "blog",
@@ -35,6 +35,9 @@
     "dev": "run-p \"copy --watch\" \"build:config --watch --declarationMap --sourceMap\" \"build:css --watch\"",
     "type": "vue-tsc --noEmit",
     "release": "run-s clean type build"
+  },
+  "dependencies": {
+    "ts-debounce": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
