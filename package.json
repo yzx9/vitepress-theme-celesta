@@ -1,6 +1,6 @@
 {
   "name": "vitepress-theme-celesta",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "packageManager": "pnpm@8.11.0",
   "author": "Zexin Yuan",
@@ -15,46 +15,42 @@
     "vitepress",
     "theme"
   ],
-  "main": "dist/theme/index.js",
-  "types": "types/theme/index.d.ts",
+  "main": "dist/index.ts",
   "exports": {
-    ".": {
-      "import": "./dist/theme.js",
-      "types": "./types/theme/index.d.ts",
-      "default": "./dist/theme.js"
-    },
-    "./dist/*": "./dist/*",
-    "./package.json": "./package.json",
-    "./theme": {
-      "import": "./dist/theme.js",
-      "types": "./types/theme/index.d.ts",
-      "default": "./dist/theme.js"
+    ".": "./dist/index.ts",
+    "./config": {
+      "types": "./dist/config/index.d.ts",
+      "default": "./dist/config/index.js"
     }
   },
   "files": [
-    "dist",
-    "types"
+    "dist"
   ],
   "scripts": {
-    "build": "vue-tsc --noEmit -p src/theme && vite build"
+    "build": "run-p copy build:config build:css",
+    "build:config": "tsc -p tsconfig.build.json --outDir dist/config --declaration",
+    "build:css": "tailwindcss -i src/style.css -o dist/style.css",
+    "copy": "cpx -i \"src/config/*\" \"src/**/*.{ts,vue}\" dist",
+    "clean": "rimraf dist",
+    "dev": "run-p \"copy --watch\" \"build:config --watch --declarationMap --sourceMap\" \"build:css --watch\"",
+    "type": "vue-tsc --noEmit",
+    "release": "run-s clean type build"
   },
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^15.2.3",
     "@types/node": "^20.10.0",
-    "@vitejs/plugin-vue": "^4.5.0",
     "autoprefixer": "^10.4.16",
+    "cpx2": "^6.0.1",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.31",
-    "postcss-import": "^15.1.0",
-    "postcss-nesting": "^12.0.1",
     "rimraf": "^5.0.5",
     "tailwindcss": "^3.3.5",
     "typescript": "^5.2.2",
-    "vite": "^5.0.2",
     "vitepress": "1.0.0-rc.31",
     "vue": "^3.3.9",
     "vue-tsc": "^1.8.22"
   },
   "peerDependencies": {
+    "vitepress": "1.0.0-rc.31",
     "vue": "^3.3.9"
   }
 }
