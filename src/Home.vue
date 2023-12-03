@@ -40,4 +40,8 @@ const { site } = useData()
 .home__title {
   font-family: "Kaushan Script", cursive;
 }
+
+.home .navbar__link-home {
+  display: none;
+}
 </style>

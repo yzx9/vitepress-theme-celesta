@@ -1,42 +1,30 @@
 <script setup lang="ts">
 import { useData, useRoute, useRouter } from "vitepress"
-import { computed, ref, watch } from "vue"
-import { useScroll } from "../composables"
+import { computed } from "vue"
 
 const route = useRoute()
 const router = useRouter()
 const { site } = useData()
 
 // links
-const linksBase = ["archives", "categories", "tags", "about"]
-const links = computed(() =>
-  linksBase.map((a) => ({
+const links = computed(() => [
+  [
+    {
+      id: "home",
+      name: site.value.title.toUpperCase(),
+      link: "/",
+      active: route.path === "",
+      bold: true,
+    },
+  ],
+  ["archives", "categories", "tags", "about"].map((a) => ({
+    id: a,
     name: a.toUpperCase(),
     link: `/${a}.html`,
-    active: route.path.startsWith("/archives"),
-  }))
-)
-
-// title
-const isHome = computed(() => route.data.frontmatter?.layout === "home")
-const title = computed(() =>
-  isHome.value ? "BLOG" : site.value.title.toUpperCase()
-)
-
-// display
-const NAVBAR_HEIGHT = 50
-const THRESHOLD = NAVBAR_HEIGHT * 3
-
-const { top: scrollTop } = useScroll()
-const isTransparent = computed(() => scrollTop.value <= THRESHOLD)
-
-const top = ref(0)
-const createBetween = (min: number, max: number) => (val: number) =>
-  val < min ? min : val > max ? max : val
-const between = createBetween(-NAVBAR_HEIGHT, 0)
-watch(scrollTop, (value, oldValue) => {
-  top.value = between(top.value + oldValue - value)
-})
+    active: route.path.startsWith(a),
+    bold: false,
+  })),
+])
 
 function handleNav(path: string) {
   router.go(path)
@@ -45,30 +33,22 @@ function handleNav(path: string) {
 
 <template>
   <div
-    class="navbar fixed top-0 left-0 w-full flex justify-between z-50 bg-white bg-opacity-70 shadow-md transition-all duration-500"
-    :class="{ 'navbar--transparent bg-opacity-0 shadow-none': isTransparent }"
+    class="navbar absolute top-0 left-0 w-full flex justify-between z-50 transition-all"
   >
-    <ul class="flex">
+    <ul v-for="ls in links" class="flex">
       <li
-        class="navbar__link flex justify-center items-center transition-all font-medium text-primary-500"
+        v-for="{ id, name, link, active, bold } in ls"
+        :key="`v-navbar-link-${id}`"
+        class="navbar__link flex justify-center items-center transition-all font-medium"
+        :class="
+          active
+            ? `navbar__link-${id} navbar__link--active`
+            : `navbar__link-${id}`
+        "
       >
         <a
-          class="font-bold h-full px-4 align-middle cursor-pointer transition-all"
-          @click="handleNav('/')"
-          >{{ title }}</a
-        >
-      </li>
-    </ul>
-
-    <ul class="flex">
-      <li
-        v-for="{ name, link, active } in links"
-        :key="`v-navbar-link-${link}`"
-        class="navbar__link"
-        :class="{ 'text-primary-500': active }"
-      >
-        <a
-          class="h-full px-4 align-middle cursor-pointer transition-all"
+          class="h-full px-4 align-middle cursor-pointer"
+          :class="{ 'font-bold': bold }"
           @click="handleNav(link)"
           >{{ name }}</a
         >
@@ -77,24 +57,26 @@ function handleNav(path: string) {
   </div>
 </template>
 
-<style lang="postcss">
+<style>
 .navbar {
-  --navbar-height: calc(v-bind(NAVBAR_HEIGHT) * 1px);
+  --navbar-height: 50px;
 
   height: var(--navbar-height);
-  top: calc(v-bind(top) * 1px);
-}
-
-.navbar--transparent .navbar__link {
-  color: white;
-}
-
-.navbar--transparent .navbar__link:hover a {
-  border-color: rgb(var(--color-primary-500));
+  color: rgb(var(--color-navbar, var(--color-primary-600)));
 }
 
 .navbar__link a {
   border-bottom: 2px solid transparent;
   line-height: var(--navbar-height);
+}
+
+.navbar__link--active:hover,
+.navbar__link:hover {
+  color: rgb(var(--color-primary-500));
+}
+
+.navbar__link--active:hover a,
+.navbar__link:hover a {
+  border-color: rgb(var(--color-primary-500));
 }
 </style>

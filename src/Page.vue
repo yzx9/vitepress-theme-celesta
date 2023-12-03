@@ -7,13 +7,13 @@ import TheSidebar from "./components/Sidebar.vue"
 </script>
 
 <template>
-  <LayoutBase>
+  <LayoutBase class="page">
     <template #header>
       <TheHeader />
     </template>
 
     <template #main>
-      <article class="page p-10 vp-doc max-w-none">
+      <article class="page__article p-10 vp-doc max-w-none">
         <Content />
       </article>
     </template>
@@ -29,7 +29,13 @@ import TheSidebar from "./components/Sidebar.vue"
 </template>
 
 <style lang="postcss">
-.page a.header-anchor {
+.page {
+  --color-page-header: 68 64 60;
+  --color-navbar: var(--color-page-header);
+  --color-header: var(--color-page-header);
+}
+
+.page__article a.header-anchor {
   font-size: 0.85em;
   float: left;
   margin-left: -0.87em;
@@ -44,16 +50,16 @@ import TheSidebar from "./components/Sidebar.vue"
   }
 }
 
-.page h1:hover .header-anchor,
-.page h2:hover .header-anchor,
-.page h3:hover .header-anchor,
-.page h4:hover .header-anchor,
-.page h5:hover .header-anchor,
-.page h6:hover .header-anchor {
+.page__article h1:hover .header-anchor,
+.page__article h2:hover .header-anchor,
+.page__article h3:hover .header-anchor,
+.page__article h4:hover .header-anchor,
+.page__article h5:hover .header-anchor,
+.page__article h6:hover .header-anchor {
   opacity: 1;
 }
 
-.page img {
+.page__article img {
   margin: auto;
 }
 </style>
