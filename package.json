@@ -32,7 +32,8 @@
     "build:css": "tailwindcss -i src/style.css -o dist/style.css",
     "copy": "cpx -i \"src/config/*\" \"src/**/*.{ts,vue}\" dist",
     "clean": "rimraf dist",
-    "dev": "run-p \"copy --watch\" \"build:config --watch --declarationMap --sourceMap\" \"build:css --watch\"",
+    "dev": "run-p \"copy --watch\" \"build:config --watch --declarationMap --sourceMap\" \"build:css --watch\" \"demo\"",
+    "demo": "pnpm -C demo run dev",
     "type": "vue-tsc --noEmit",
     "release": "run-s clean type build"
   },
