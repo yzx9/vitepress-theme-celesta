@@ -1,12 +1,47 @@
 ---
 tags:  
-  - docs  
-categories:  
-  - [cat_1, cat_1_1]  
-  - [cat_2, [cat_2_1, cat_2_2]]  
+  - docs
+categories:
+  - [cat_1, cat_1_1]
+  - [cat_2, [cat_2_1, cat_2_2]]
 ---
 
-# Runtime API Docs
+# Getting Started
+
+1. Read [Vitepress Docs](https://vitepress.dev/guide/getting-started) and install `vitepress`
+
+
+2. Install `vitepress-theme-celesta`
+::: code-group
+
+```sh [npm]
+$ npm add -D vitepress-theme-celesta
+```
+
+```sh [pnpm]
+$ pnpm add -D vitepress-theme-celesta
+```
+
+```sh [yarn]
+$ yarn add -D vitepress-theme-celesta
+```
+
+```sh [bun]
+$ bun add -D vitepress-theme-celesta
+```
+
+:::
+
+3. Modify your `.vitepress/theme/index.ts` file.
+```ts
+// .vitepress/theme/index.ts
+import { theme } from 'vitepress-theme-celesta'
+
+export default theme
+```
+
+
+# Vitepress Runtime API
 
 The main `useData()` API can be used to access site, theme, and page data for the current page. It works in both `.md` and `.vue` files:
 
@@ -51,7 +86,7 @@ const { site, theme, page, frontmatter } = useData()
 Check out the documentation for the [full list of runtime APIs](https://vitepress.dev/reference/runtime-api#usedata).
 
 
-# Markdown Extension Docs
+# Markdown Extension Syntax
 
 This section demonstrates some of the built-in markdown extensions provided by VitePress.
 
