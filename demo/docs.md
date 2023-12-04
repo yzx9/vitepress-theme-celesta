@@ -11,7 +11,8 @@ categories:
 1. Read [Vitepress Docs](https://vitepress.dev/guide/getting-started) and install `vitepress`
 
 2. Install `vitepress-theme-celesta`
-   ::: code-group
+
+::: code-group
 
 ```sh [npm]
 $ npm add -D vitepress-theme-celesta
