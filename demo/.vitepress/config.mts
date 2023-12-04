@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: "Vitepress Theme Celesta Demo Project",
-  description: "A VitePress Site"
+  title: "Celesta Docs",
+  description: "A Document Site for Vitepress Theme Celesta ",
 })

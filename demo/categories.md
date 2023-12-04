@@ -1,1 +1,1 @@
-## This is cate page
+## WIP: This is categories page

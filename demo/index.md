@@ -1,5 +1,4 @@
 ---
-home: true
+layout: home
 ---
-This is demo home page
-
+WIP: This is demo home page
