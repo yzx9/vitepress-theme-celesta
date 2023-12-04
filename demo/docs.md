@@ -1,5 +1,5 @@
 ---
-tags:  
+tags:
   - docs
 categories:
   - [cat_1, cat_1_1]
@@ -10,9 +10,8 @@ categories:
 
 1. Read [Vitepress Docs](https://vitepress.dev/guide/getting-started) and install `vitepress`
 
-
 2. Install `vitepress-theme-celesta`
-::: code-group
+   ::: code-group
 
 ```sh [npm]
 $ npm add -D vitepress-theme-celesta
@@ -33,13 +32,13 @@ $ bun add -D vitepress-theme-celesta
 :::
 
 3. Modify your `.vitepress/theme/index.ts` file.
+
 ```ts
 // .vitepress/theme/index.ts
-import { theme } from 'vitepress-theme-celesta'
+import { theme } from "vitepress-theme-celesta"
 
 export default theme
 ```
-
 
 # Vitepress Runtime API
 
@@ -55,12 +54,15 @@ const { theme, page, frontmatter } = useData()
 ## Results
 
 ### Theme Data
+
 <pre>{{ theme }}</pre>
 
 ### Page Data
+
 <pre>{{ page }}</pre>
 
 ### Page Frontmatter
+
 <pre>{{ frontmatter }}</pre>
 ```
 
@@ -73,18 +75,20 @@ const { site, theme, page, frontmatter } = useData()
 ## Results
 
 ### Theme Data
+
 <pre>{{ theme }}</pre>
 
 ### Page Data
+
 <pre>{{ page }}</pre>
 
 ### Page Frontmatter
+
 <pre>{{ frontmatter }}</pre>
 
 ## More
 
 Check out the documentation for the [full list of runtime APIs](https://vitepress.dev/reference/runtime-api#usedata).
-
 
 # Markdown Extension Syntax
 
