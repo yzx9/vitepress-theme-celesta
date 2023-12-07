@@ -44,10 +44,10 @@ import TheSidebar from "./components/Sidebar.vue"
   opacity: 0;
 
   color: rgb(var(--color-primary-500));
+}
 
-  &:hover {
-    text-decoration: none;
-  }
+.page__article a.header-anchor:hover {
+  text-decoration: none;
 }
 
 .page__article h1:hover .header-anchor,

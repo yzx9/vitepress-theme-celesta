@@ -1,18 +1,14 @@
 <script lang="ts" setup>
-import { useData, useRouter } from "vitepress"
+import { useRouter } from "vitepress"
 import { computed } from "vue"
 import Ghost from "./components/Ghost.vue"
-import type { Config } from "./config"
+import { useConfig } from "./config/runtime"
 
-const data = useData<Config>()
 const router = useRouter()
+const config = useConfig()
 
-const i18n = computed(() => data.theme.value.i18n ?? {})
-const messages = computed(() => i18n.value.notFound ?? ["Not Found"])
-const backToHomes = computed(() => i18n.value.backToHome ?? ["Back To Home"])
-
-const message = computed(() => selectRandomOne(messages.value))
-const backToHome = computed(() => selectRandomOne(backToHomes.value))
+const message = computed(() => selectRandomOne(config.value.notFound))
+const backToHome = computed(() => selectRandomOne(config.value.backToHome))
 
 function handleBackToHome() {
   router.go("/")

@@ -19,8 +19,8 @@
   "exports": {
     ".": "./dist/index.ts",
     "./config": {
-      "types": "./dist/config/index.d.ts",
-      "default": "./dist/config/index.js"
+      "types": "./dist/config/node.d.ts",
+      "default": "./dist/config/node.js"
     }
   },
   "files": [
@@ -30,7 +30,7 @@
     "build": "run-p copy build:config build:css",
     "build:config": "tsc -p tsconfig.build.json --outDir dist/config --declaration",
     "build:css": "tailwindcss -i src/style.css -o dist/style.css",
-    "copy": "cpx -i \"src/config/*\" \"src/**/*.{ts,vue}\" dist",
+    "copy": "cpx -i \"src/config/node.ts\" \"src/**/*.{ts,vue}\" dist",
     "clean": "rimraf dist",
     "dev": "run-p \"copy --watch\" \"build:config --watch --declarationMap --sourceMap\" \"build:css --watch\" \"demo\"",
     "demo": "pnpm -C demo run dev",
@@ -39,10 +39,13 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "gray-matter": "^4.0.3",
+    "remove-markdown": "^0.5.0",
     "ts-debounce": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
+    "@types/remove-markdown": "^0.3.4",
     "autoprefixer": "^10.4.16",
     "cpx2": "^6.0.1",
     "npm-run-all": "^4.1.5",

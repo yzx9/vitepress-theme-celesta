@@ -1,33 +1,31 @@
+import matter from "gray-matter"
 import path from "path"
+import removeMarkdown from "remove-markdown"
+import { createContentLoader, type ContentData } from "vitepress"
+import { config } from "./config/build-time"
 import {
-  createContentLoader,
-  type ContentData,
-  type SiteConfig,
-} from "vitepress"
-import {
-  resolveCreateAt,
+  resolveCategories,
+  resolveCreatedAt,
   resolveTags,
-  resolveTitle,
   type Category,
   type Tag,
 } from "./frontmatter"
 
-const config: SiteConfig = (globalThis as any).VITEPRESS_CONFIG
-export const postDir = config.userConfig.themeConfig?.postDir ?? "posts"
+const reH1 = /^#+\s+(.*)$/m
 
 export interface Post {
   url: string
   title: string
+  excerpt: string
   tags: Tag[]
   categories: Category[]
-  excerpt: string
   createdAt: string
 }
 
 export declare const data: Post[]
 
-export default createContentLoader(path.join(postDir, "**/*.md"), {
-  excerpt: true,
+export default createContentLoader(path.join(config.postDir, "**/*.md"), {
+  includeSrc: true,
   transform: (data) =>
     data
       .map(resolvePost)
@@ -38,14 +36,47 @@ function resolvePost(data: ContentData): Post {
   return {
     url: data.url,
     title: resolveTitle(data),
-    tags: resolveTags(data),
-    categories: data.frontmatter?.categories ?? [],
     excerpt: resolveExcerpt(data),
-    createdAt: resolveCreateAt(data),
+    tags: resolveTags(data.frontmatter),
+    categories: resolveCategories(data.frontmatter),
+    createdAt: resolveCreatedAt(data.frontmatter),
   }
 }
 
+function resolveTitle(data: ContentData): string {
+  if (data.frontmatter.title) {
+    return data.frontmatter.title
+  }
+
+  const matches = data.src?.match(reH1)
+  if (matches) {
+    return matches[1]
+  }
+
+  return ""
+}
+
 function resolveExcerpt(data: ContentData): string {
-  // TODO
-  return data?.excerpt ?? ""
+  if (data.frontmatter.excerpt) return data.frontmatter.excerpt
+
+  const src = data.src
+  if (!src) return ""
+
+  let content = matter(src).content
+
+  // remove first h1
+  content = content.replace(reH1, "")
+
+  // remove content after excerptSeprator
+  if (content.includes(config.excerptSeprator)) {
+    content = content.slice(0, content.indexOf(config.excerptSeprator))
+  }
+
+  // TODO: handle latex, table and img
+
+  // remove markdown
+  content = removeMarkdown(content)
+
+  const excerpt = content.trim().slice(0, config.excerptLength)
+  return excerpt + "..."
 }

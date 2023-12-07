@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { useData } from "vitepress"
-import type { Config } from "../config"
+import { useData } from "../config/runtime"
 
-const { page } = useData<Config>()
+const { page } = useData()
 </script>
 
 <template>

@@ -13,18 +13,20 @@
 </template>
 
 <script setup lang="ts">
-import { useData } from "vitepress"
 import { computed } from "vue"
-import type { Config } from "../config"
+import { useConfig } from "../config/runtime"
+import { data as postsEarliest } from "../postsEarliest.data"
 
-const data = useData<Config>()
+const data = useConfig()
 
+const startYear = new Date(postsEarliest.createdAt).getFullYear()
 const currentYear = new Date(Date.now()).getFullYear()
 
-const copyrightTemplate = "Copyright © 2021 – :year :author"
+const copyrightTemplate = "Copyright © :start_year – :current_year :author"
 const copyright = computed(() =>
   copyrightTemplate
-    .replace(":year", currentYear.toString())
-    .replace(":author", data.theme.value.author ?? "")
+    .replace(":start_year", startYear.toString())
+    .replace(":current_year", currentYear.toString())
+    .replace(":author", data.value.author ?? "")
 )
 </script>
