@@ -78,7 +78,8 @@ export function resolveCategories(frontmatter: Frontmatter): Category[] {
     categories = [categories]
   }
 
-  return categories.map((a: any) => _resolveCategories(a))
+  const resolved = categories.map((a: any) => _resolveCategories(a))
+  return tryMergeCategories(resolved)
 }
 
 function _resolveCategories(v: any, slugPrefix: string = ""): Category {
@@ -116,6 +117,30 @@ function _resolveCategories(v: any, slugPrefix: string = ""): Category {
   }
 
   return root
+}
+
+function tryMergeCategories(categories: Category[]): Category[] {
+  const merged: Category[] = []
+  for (const category of categories) {
+    let flag = true
+    for (const a of merged) {
+      if (a.slug === category.slug) {
+        a.children.push(...category.children)
+        flag = false
+        break
+      }
+    }
+
+    if (flag) {
+      merged.push(category)
+    }
+  }
+
+  for (const category of merged) {
+    category.children = tryMergeCategories(category.children)
+  }
+
+  return merged
 }
 
 function joinSlug(prefix: string, current: string): string {
