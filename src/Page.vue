@@ -33,7 +33,7 @@ const author = computed(
         <Content />
       </article>
 
-      <div class="px-6 flex flex-col items-end">
+      <div class="px-10 flex flex-col items-end">
         <div class="my-2 font-bold">{{ author }}</div>
 
         <div
@@ -47,8 +47,8 @@ const author = computed(
         </div>
       </div>
 
-      <div class="w-full my-8 flex flex-col text-gray-600">
-        <div class="mx-6 my-4 border-t"></div>
+      <div class="w-full px-10 my-8 flex flex-col text-gray-600">
+        <div class="my-4 border-t"></div>
 
         <Navigator />
       </div>
