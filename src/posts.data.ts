@@ -22,14 +22,22 @@ export interface Post {
   createdAt: string
 }
 
-export declare const data: Post[]
+type Data = {
+  /**
+   * Map from url to post
+   */
+  posts: Record<string, Post>
+}
+
+export declare const data: Data
 
 export default createContentLoader(path.join(config.postDir, "**/*.md"), {
   includeSrc: true,
-  transform: (data) =>
-    data
-      .map(resolvePost)
-      .sort((a, b) => (new Date(a.createdAt) > new Date(b.createdAt) ? -1 : 1)),
+  transform(data): Data {
+    return {
+      posts: collect(data.map(resolvePost), (a) => a.url),
+    }
+  },
 })
 
 function resolvePost(data: ContentData): Post {
@@ -79,4 +87,15 @@ function resolveExcerpt(data: ContentData): string {
 
   const excerpt = content.trim().slice(0, config.excerptLength)
   return excerpt + "..."
+}
+
+function collect<T, K extends string | number | symbol>(
+  data: T[],
+  key: (item: T) => K
+): Record<K, T> {
+  const ret = {} as Record<K, T>
+  for (const item of data) {
+    ret[key(item)] = item
+  }
+  return ret
 }

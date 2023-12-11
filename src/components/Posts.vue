@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue"
-import type { Post } from "../posts.data"
 import Pager from "./Pager.vue"
-import PostVue from "./Post.vue"
+import PostCard from "./PostCard.vue"
 
 const props = defineProps<{
-  data: Post[]
+  posts: string[]
 }>()
 
 const root = ref<HTMLElement | null>(null)
@@ -13,7 +12,7 @@ const root = ref<HTMLElement | null>(null)
 const pager = ref({
   current: 1,
   pageSize: 10,
-  total: computed(() => props.data.length),
+  total: computed(() => props.posts.length),
 })
 watch(
   () => pager.value.total,
@@ -26,7 +25,7 @@ watch(
 )
 
 const slice = computed(() =>
-  props.data.slice(
+  props.posts.slice(
     (pager.value.current - 1) * pager.value.pageSize,
     pager.value.current * pager.value.pageSize
   )
@@ -35,7 +34,7 @@ const slice = computed(() =>
 
 <template>
   <div ref="root" class="flex flex-col gap-8">
-    <PostVue v-for="post in slice" :data="post" />
+    <PostCard v-for="post in slice" :post="post" />
 
     <Pager v-model:current="pager.current" :total="pager.total" />
   </div>

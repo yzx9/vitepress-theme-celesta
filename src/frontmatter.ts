@@ -1,4 +1,4 @@
-import { slugFriendly } from "./config/build-time"
+import { slugFriendly } from "./config/cross-time"
 
 type Frontmatter = Record<string, any>
 
@@ -17,11 +17,15 @@ type Frontmatter = Record<string, any>
  */
 export interface Tag {
   slug: string
+  raw: string
 }
 
 export function resolveTags(frontmatter: Frontmatter): Tag[] {
   return stringsOrEmpty(frontmatter?.tags).map(
-    (v): Tag => ({ slug: slugFriendly(v) })
+    (raw): Tag => ({
+      slug: slugFriendly(raw),
+      raw,
+    })
   )
 }
 
@@ -44,80 +48,92 @@ function stringsOrEmpty(v: any): string[] {
  * @example multiple categories
  *
  * categories:
+ * -
  *   - category_a
- *     - category_a_1
- *     - category_a_2
+ *   - category_a_1
+ * -
  *   - category_b
+ *   -
  *     - category_b_1
  *     - category_b_2
- *       - category_b_2_i
- *       - category_b_2_ii
- *   - category_c
+ * - category_c
  * ---
  */
 export interface Category {
   slug: string
+  raw: string
   children: Category[]
 }
 
-export function resolveCategories(
-  frontmatter: Frontmatter,
-  slugPrefix: string = ""
-): Category[] {
-  let categories = frontmatter?.categories
+export function resolveCategories(frontmatter: Frontmatter): Category[] {
+  let categories = frontmatter.categories
   if (!categories) {
     // empty
-    return []
-  }
-
-  if (!Array.isArray(categories)) {
+    categories = []
+  } else if (!Array.isArray(categories)) {
     // simple category without children
-    const name = categories.toString()
-    const category: Category = {
-      slug: joinSlug(slugPrefix, name),
-      children: [],
-    }
-    return [category]
+    categories = [[categories]]
+  } else if (!Array.isArray(categories[0])) {
+    // single category with children
+    categories = [categories]
   }
 
-  const arr: Category[] = []
-  for (const v of categories) {
-    const vv = !Array.isArray(v) ? [v] : v
-    if (vv.length < 1 || Array.isArray(vv[0])) {
-      throw new Error("invalid category")
-    }
-
-    const root: Category = {
-      slug: joinSlug(slugPrefix, slugFriendly(vv[0])),
-      children: [],
-    }
-    let current = root
-    for (let i = 1; i < vv.length; i++) {
-      const u = vv[i]
-      if (Array.isArray(u)) {
-        // should be the last one
-        if (i !== vv.length - 1) {
-          throw new Error("invalid category")
-        }
-
-        current.children = resolveCategories(u, current.slug)
-      } else {
-        const category: Category = {
-          slug: joinSlug(current.slug, slugFriendly(u.toString())),
-          children: [],
-        }
-        current.children.push(category)
-        current = category
-      }
-    }
-
-    arr.push(root)
-  }
-  return arr
+  return categories.map((a: any) => _resolveCategories(a))
 }
 
-function joinSlug(v: string, prefix: string): string {
-  return `${prefix}/${v}`
+function _resolveCategories(v: any, slugPrefix: string = ""): Category {
+  const vv = !Array.isArray(v) ? [v] : v
+  if (vv.length < 1 || Array.isArray(vv[0])) {
+    throw new Error("invalid category")
+  }
+
+  const root: Category = {
+    slug: joinSlug(slugPrefix, slugFriendly(vv[0])),
+    raw: vv[0],
+    children: [],
+  }
+  let current = root
+  for (let i = 1; i < vv.length; i++) {
+    const u = vv[i]
+    if (Array.isArray(u)) {
+      // should be the last one
+      if (i !== vv.length - 1) {
+        throw new Error("invalid category, should be the last one")
+      }
+
+      current.children = u.map((a) => _resolveCategories(a, current.slug))
+    } else {
+      const prefix = current.slug
+      const uu = u.toString()
+      const category: Category = {
+        slug: joinSlug(prefix, slugFriendly(uu)),
+        raw: uu,
+        children: [],
+      }
+      current.children.push(category)
+      current = category
+    }
+  }
+
+  return root
+}
+
+function joinSlug(prefix: string, current: string): string {
+  if (prefix === "") return current
+  if (current === "") return prefix
+  return `${prefix}/${current}`
+}
+
+export function parseCategorySlug(slug: string): {
+  parts: string[]
+  ancestors: string[]
+} {
+  const parts = slug.split("/")
+  const ancestors = []
+  for (let i = 0; i < parts.length; i++) {
+    ancestors.push(parts.slice(0, i + 1).join("/"))
+  }
+  return { parts, ancestors }
 }
 
 /**
@@ -129,6 +145,7 @@ function joinSlug(v: string, prefix: string): string {
  * ---
  */
 export function resolveCreatedAt(frontmatter: Frontmatter): string {
+  // TODO: from git
   return formatTime(frontmatter?.date)
 }
 
@@ -141,6 +158,7 @@ export function resolveCreatedAt(frontmatter: Frontmatter): string {
  * ---
  */
 export function resolveUpdatedAt(frontmatter: Frontmatter): string {
+  // TODO: from git
   return formatTime(frontmatter?.updated)
 }
 

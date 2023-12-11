@@ -2,7 +2,7 @@
 import { useData } from "vitepress"
 import LayoutBase from "./components/LayoutBase.vue"
 import Posts from "./components/Posts.vue"
-import { data as posts } from "./posts.data"
+import { data } from "./timeline.data"
 
 const { site } = useData()
 </script>
@@ -24,7 +24,7 @@ const { site } = useData()
     </template>
 
     <template #main>
-      <Posts class="-mt-20" :data="posts" />
+      <Posts class="-mt-20" :posts="data.sorted" />
     </template>
   </LayoutBase>
 </template>
@@ -45,3 +45,4 @@ const { site } = useData()
   display: none;
 }
 </style>
+./timeline.data

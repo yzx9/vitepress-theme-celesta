@@ -1,3 +1,9 @@
+/**
+ * @description
+ * - This file is used to resolve the config from user input
+ * - This file is intended for used in both build time and runtime.
+ */
+
 import type {
   Config,
   ResovledConfig,
@@ -46,18 +52,25 @@ const configLocaleEn: ResovledConfigLocale = {
   backToHome: ["Take me home.", "Go Home", "Homepage", "HEAD ON HOME"],
 }
 
-export function withDefaults(
+export function resolveConfig(
   config: Config,
+  configLocale: Config = {},
   locale: string = ""
 ): ResovledConfig {
-  const configLocale = switchConfigLocale(locale)
-  const resolved = Object.assign({}, configGloabl, configLocale, config)
+  const configLocaleDefault = switchDefaultConfigLocale(locale)
+  const resolved = Object.assign(
+    {},
+    configGloabl,
+    configLocaleDefault,
+    config,
+    configLocale
+  )
   resolved.category = toSlugFriendly(resolved.category)
   resolved.tag = toSlugFriendly(resolved.tag)
   return resolved
 }
 
-function switchConfigLocale(locale: string = ""): ResovledConfigLocale {
+function switchDefaultConfigLocale(locale: string = ""): ResovledConfigLocale {
   switch (locale) {
     case "zh":
       return configLocaleZh
@@ -71,11 +84,11 @@ function switchConfigLocale(locale: string = ""): ResovledConfigLocale {
 function toSlugFriendly(v: Record<string, string>): Record<string, string> {
   const result: Record<string, string> = {}
   Object.keys(v).forEach((key) => {
-    result[key] = slugFriendly(v[key])
+    result[slugFriendly(key)] = v[key]
   })
   return result
 }
 
 export function slugFriendly(v: string): string {
-  return v.toString().toLocaleLowerCase().replace(/\s+/, "-")
+  return v.toString().toLocaleLowerCase().replace(/\s+/g, "-")
 }

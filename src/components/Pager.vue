@@ -111,19 +111,19 @@ function onExpand(type: "left" | "right") {
 
 <template>
   <ul class="flex flex-row justify-center select-none">
-    <template v-for="p in pager">
-      <li
-        class="h-8 w-10 mx-2 leading-8 text-center cursor-pointer border rounded border-transparent transition-all text-gray-900 hover:text-primary-500"
-        :class="{
-          'text-primary-500 border-gray-200 hover:border-gray-300':
-            p.type === 'page' && p.active,
-        }"
-        @click="
-          p.type === 'page' ? onCurrentChange(p.index) : onExpand(p.position)
-        "
-      >
-        {{ p.type === "page" ? p.index : "..." }}
-      </li>
-    </template>
+    <li
+      v-for="p in pager"
+      class="h-8 w-10 mx-2 leading-8 text-center cursor-pointer border rounded border-transparent transition-all text-gray-900 hover:text-primary-500"
+      :class="
+        p.type === 'page' && p.active
+          ? 'text-primary-500 border-gray-200 bg-white bg-opacity-80 hover:bg-opacity-100'
+          : 'hover:bg-white hover:bg-opacity-60'
+      "
+      @click="
+        p.type === 'page' ? onCurrentChange(p.index) : onExpand(p.position)
+      "
+    >
+      {{ p.type === "page" ? p.index : "..." }}
+    </li>
   </ul>
 </template>

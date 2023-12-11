@@ -1,5 +1,5 @@
 /**
- * Notes:
+ * @description
  * - This file is intended for use in a Node.js environment only.
  * - This file will be compiled to `.js` file.
  */
