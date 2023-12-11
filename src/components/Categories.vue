@@ -14,6 +14,7 @@ const props = withDefaults(
   <template v-for="(c, i) in props.data">
     <span
       class="underline cursor-pointer transition-colors hover:text-primary-500"
+      :title="c.raw"
       >{{ c.title }}</span
     >
 

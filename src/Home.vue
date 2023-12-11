@@ -24,7 +24,7 @@ const { site } = useData()
     </template>
 
     <template #main>
-      <Posts class="-mt-20" :posts="data.sorted" />
+      <Posts class="-mt-20" :posts="data.timeline" />
     </template>
   </LayoutBase>
 </template>
@@ -45,4 +45,3 @@ const { site } = useData()
   display: none;
 }
 </style>
-./timeline.data

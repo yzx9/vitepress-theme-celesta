@@ -1,9 +1,25 @@
 <script setup lang="ts">
 import { Content } from "vitepress"
-import TheCatalog from "./components/Catalog.vue"
+import { computed } from "vue"
+import Catalog from "./components/Catalog.vue"
 import TheHeader from "./components/Header.vue"
 import LayoutBase from "./components/LayoutBase.vue"
-import TheSidebar from "./components/Sidebar.vue"
+import Navigator from "./components/Navigator.vue"
+import Sidebar from "./components/Sidebar.vue"
+import { useConfig, useData } from "./config/runtime"
+import { resolveAuthor, resolveCreatedAt } from "./frontmatter"
+
+const data = useData()
+const config = useConfig()
+
+const createdAtRaw = computed(() => resolveCreatedAt(data.frontmatter.value))
+const createdAt = computed(() =>
+  createdAtRaw.value ? new Date(createdAtRaw.value) : null
+)
+
+const author = computed(
+  () => resolveAuthor(data.frontmatter) ?? config.value.author
+)
 </script>
 
 <template>
@@ -16,14 +32,34 @@ import TheSidebar from "./components/Sidebar.vue"
       <article class="page__article p-10 vp-doc max-w-none">
         <Content />
       </article>
+
+      <div class="px-6 flex flex-col items-end">
+        <div class="my-2 font-bold">{{ author }}</div>
+
+        <div
+          v-if="createdAt && createdAtRaw"
+          class="text-sm"
+          :title="createdAtRaw"
+        >
+          {{ createdAt.getFullYear() }}-{{ createdAt.getMonth() + 1 }}-{{
+            createdAt.getDate()
+          }}
+        </div>
+      </div>
+
+      <div class="w-full my-8 flex flex-col text-gray-600">
+        <div class="mx-6 my-4 border-t"></div>
+
+        <Navigator />
+      </div>
     </template>
 
     <template #sub>
-      <TheSidebar />
+      <Sidebar />
     </template>
 
     <template #extra>
-      <TheCatalog />
+      <Catalog />
     </template>
   </LayoutBase>
 </template>

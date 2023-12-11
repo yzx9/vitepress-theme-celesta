@@ -21,8 +21,8 @@ export declare const data: Data
 
 export default createContentLoader(path.join(config.postDir, "**/*.md"), {
   transform(data): Data {
-    const { sorted } = resloveContentDataCreatedAt(data)
-    const postsRaw = sorted.map((a) => ({
+    const { timeline } = resloveContentDataCreatedAt(data)
+    const postsRaw = timeline.map((a) => ({
       url: a.url,
       categories: resolveCategories(a.frontmatter),
     }))

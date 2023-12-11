@@ -1,13 +1,13 @@
 import path from "path"
 import { createContentLoader, type ContentData } from "vitepress"
 import { config } from "./config/build-time"
-import { DateDefault, resolveCreatedAt } from "./frontmatter"
+import { resolveCreatedAt } from "./frontmatter"
 
 type Data = {
   /**
    * Sorted post urls by createdAt desc
    */
-  sorted: string[]
+  timeline: string[]
 
   earliest: {
     createdAt: string
@@ -19,12 +19,12 @@ export declare const data: Data
 export default createContentLoader(path.join(config.postDir, "**/*.md"), {
   includeSrc: true,
   transform(data): Data {
-    const { sorted, resolved } = resloveContentDataCreatedAt(data)
+    const { timeline, resolved } = resloveContentDataCreatedAt(data)
     const earliest = resolved?.[resolved.length - 1] ?? {
       createdAt: new Date(),
     }
     return {
-      sorted: sorted.map((a) => a.url),
+      timeline: timeline.map((a) => a.url),
       earliest: {
         createdAt: earliest.createdAt.toISOString(),
       },
@@ -34,9 +34,9 @@ export default createContentLoader(path.join(config.postDir, "**/*.md"), {
 
 export function resloveContentDataCreatedAt(data: ContentData[]): {
   /**
-   * Sorted post urls by createdAt desc, unresolved posts are at the end
+   * Sorted posts by createdAt desc, unresolved posts are at the end
    */
-  sorted: ContentData[]
+  timeline: ContentData[]
 
   /**
    * Resolved posts, sotred by createdAt desc
@@ -57,17 +57,14 @@ export function resloveContentDataCreatedAt(data: ContentData[]): {
   }))
 
   const resolved = tryResovle
-    .filter((a) => a.createdAt !== DateDefault)
+    .filter((a) => a.createdAt)
     .map((a) => ({
-      createdAt: new Date(a.createdAt),
+      createdAt: new Date(a.createdAt!),
       data: a.data,
     }))
     .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
 
-  const unresolved = tryResovle
-    .filter((a) => a.createdAt === DateDefault)
-    .map((a) => a.data)
-
-  const sorted = resolved.map((a) => a.data).concat(unresolved)
-  return { sorted, resolved, unresolved }
+  const unresolved = tryResovle.filter((a) => !a.createdAt).map((a) => a.data)
+  const timeline = resolved.map((a) => a.data).concat(unresolved)
+  return { timeline, resolved, unresolved }
 }

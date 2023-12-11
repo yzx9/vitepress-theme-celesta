@@ -19,7 +19,7 @@ export interface Post {
   excerpt: string
   tags: Tag[]
   categories: Category[]
-  createdAt: string
+  createdAt: string | null
 }
 
 type Data = {

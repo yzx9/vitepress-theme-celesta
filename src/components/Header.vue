@@ -11,8 +11,13 @@ const categories = useCategories()
 const tags = useTags()
 
 const createdAt = computed(() => resolveCreatedAt(page.value.frontmatter))
-const updatedAt = computed(() => resolveUpdatedAt(page.value.frontmatter))
-const updated = computed(() => updatedAt.value !== createdAt.value)
+const updatedAtRaw = computed(() => resolveUpdatedAt(page.value.frontmatter))
+const updatedAt = computed(() =>
+  updatedAtRaw.value ? new Date(updatedAtRaw.value) : null
+)
+const updated = computed(
+  () => updatedAtRaw.value && updatedAtRaw.value !== createdAt.value
+)
 </script>
 
 <template>
@@ -42,8 +47,13 @@ const updated = computed(() => updatedAt.value !== createdAt.value)
       <span class="pr-2">分类于</span><HeaderCategories :data="categories" />
     </div>
 
-    <div v-if="updated" class="text-sm">
-      <span class="pr-2">更新于</span>{{ updatedAt }}
+    <div v-if="updated && updatedAt && updatedAtRaw" class="text-sm">
+      <span class="pr-2">更新于</span
+      ><span :title="updatedAtRaw"
+        >{{ updatedAt.getFullYear() }}- {{ updatedAt.getMonth() + 1 }}-{{
+          updatedAt.getDate()
+        }}</span
+      >
     </div>
   </div>
 </template>

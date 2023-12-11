@@ -137,6 +137,18 @@ export function parseCategorySlug(slug: string): {
 }
 
 /**
+ * Author
+ *
+ * @example
+ *
+ * author: me
+ * ---
+ */
+export function resolveAuthor(frontmatter: Frontmatter): string | null {
+  return frontmatter?.author ?? null
+}
+
+/**
  * Created At
  *
  * @example
@@ -144,7 +156,7 @@ export function parseCategorySlug(slug: string): {
  * date: 2023-01-01
  * ---
  */
-export function resolveCreatedAt(frontmatter: Frontmatter): string {
+export function resolveCreatedAt(frontmatter: Frontmatter): string | null {
   // TODO: from git
   return formatTime(frontmatter?.date)
 }
@@ -157,13 +169,11 @@ export function resolveCreatedAt(frontmatter: Frontmatter): string {
  * updated: 2023-01-01
  * ---
  */
-export function resolveUpdatedAt(frontmatter: Frontmatter): string {
+export function resolveUpdatedAt(frontmatter: Frontmatter): string | null {
   // TODO: from git
   return formatTime(frontmatter?.updated)
 }
 
-export const DateDefault = new Date(1970, 0, 1).toISOString()
-
-function formatTime(t: string | null | undefined): string {
-  return t ? new Date(t).toISOString() : DateDefault
+function formatTime(t: string | null | undefined): string | null {
+  return t ? new Date(t).toISOString() : null
 }
