@@ -15,6 +15,7 @@ const configGloabl: ResovledConfigGlobal = {
   postDir: "posts",
   excerptLength: 500,
   excerptSeprator: "<!-- end -->",
+  catalogExpandedLessThan: 2,
 }
 
 const configLocaleZh: ResovledConfigLocale = {

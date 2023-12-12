@@ -4,7 +4,7 @@ import { useCategories, useTags } from "../composables"
 import { getVisiableColor } from "../composables/color"
 import { useData } from "../config/runtime"
 import { resolveCreatedAt, resolveUpdatedAt } from "../frontmatter"
-import HeaderCategories from "./HeaderCategories.vue"
+import Categories from "./Categories.vue"
 
 const { page } = useData()
 const categories = useCategories()
@@ -44,7 +44,7 @@ const updated = computed(
     </div>
 
     <div v-if="categories.length" class="text-sm">
-      <span class="pr-2">分类于</span><HeaderCategories :data="categories" />
+      <span class="pr-2">分类于</span><Categories :data="categories" />
     </div>
 
     <div v-if="updated && updatedAt && updatedAtRaw" class="text-sm">

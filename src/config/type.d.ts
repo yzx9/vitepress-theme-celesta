@@ -15,6 +15,11 @@ export type ConfigGlobal = {
    * @default "<!-- end -->"
    */
   excerptSeprator?: string
+
+  /**
+   * @default 2
+   */
+  catalogExpandedLessThan?: number
 }
 
 export type ConfigLocale = {

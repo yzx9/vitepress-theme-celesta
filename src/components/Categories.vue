@@ -21,7 +21,7 @@ const props = withDefaults(
     <template v-if="c.children.length">
       <span class="px-1">></span>
 
-      <HeaderCategories :data="c.children" :depth="props.depth + 1" />
+      <Categories :data="c.children" :depth="props.depth + 1" />
     </template>
 
     <template v-if="i < props.data.length - 1">
