@@ -202,3 +202,31 @@ export function resolveUpdatedAt(frontmatter: Frontmatter): string | null {
 function formatTime(t: string | null | undefined): string | null {
   return t ? new Date(t).toISOString() : null
 }
+
+export enum Layout {
+  home = "home",
+  archives = "archives",
+  tags = "tags",
+  catagories = "catagories",
+  about = "about",
+  page = "page",
+}
+
+export function resolveLayout(frontmatter: Frontmatter): Layout {
+  switch (frontmatter?.layout) {
+    case "home":
+      return Layout.home
+    case "archive":
+      return Layout.archives
+    case "tags":
+      return Layout.tags
+    case "catagories":
+      return Layout.catagories
+    case "about":
+      return Layout.about
+    case "page":
+      return Layout.page
+    default:
+      return Layout.page
+  }
+}

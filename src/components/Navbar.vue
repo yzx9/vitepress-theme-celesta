@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useData, useRoute, useRouter } from "vitepress"
 import { computed } from "vue"
+import { data } from "../entry.data"
 import { useI18n } from "../i18n"
 
 const route = useRoute()
@@ -8,28 +9,30 @@ const router = useRouter()
 const { site } = useData()
 const i18n = useI18n()
 
-// links
+const entries = getEntries()
 const links = computed(() => [
-  [
-    {
-      id: "home",
-      name: site.value.title.toUpperCase(),
-      link: "/",
-      active: route.path === "",
-      bold: true,
-    },
-  ],
-  ["archives", "categories", "tags", "about"].map((id) => ({
+  data.home
+    ? [
+        {
+          id: "home",
+          url: data.home,
+          name: site.value.title.toUpperCase(),
+          active: route.path === "",
+          bold: true,
+        },
+      ]
+    : [],
+  entries.map(({ id, url }) => ({
     id,
+    url,
     name: parseName(id),
-    link: `/${id}.html`,
-    active: route.path.startsWith(id),
+    active: route.path.startsWith(url),
     bold: false,
   })),
 ])
 
-function handleNav(path: string) {
-  router.go(path)
+function handleLinkClicked(url: string) {
+  router.go(url)
 }
 
 function parseName(id: string): string {
@@ -50,6 +53,15 @@ function parseName(id: string): string {
       return id.toUpperCase()
   }
 }
+
+function getEntries(): { id: string; url: string }[] {
+  const arr = []
+  if (data.archives) arr.push({ id: "archives", url: data.archives })
+  if (data.categories) arr.push({ id: "categories", url: data.categories })
+  if (data.tags) arr.push({ id: "tags", url: data.tags })
+  if (data.about) arr.push({ id: "about", url: data.about })
+  return arr
+}
 </script>
 
 <template>
@@ -58,7 +70,7 @@ function parseName(id: string): string {
   >
     <ul v-for="ls in links" class="flex">
       <li
-        v-for="{ id, name, link, active, bold } in ls"
+        v-for="{ id, url, name, active, bold } in ls"
         :key="`v-navbar-link-${id}`"
         class="navbar__link flex justify-center items-center transition-all font-medium"
         :class="
@@ -70,7 +82,7 @@ function parseName(id: string): string {
         <a
           class="h-full px-4 align-middle cursor-pointer"
           :class="{ 'font-bold': bold }"
-          @click="handleNav(link)"
+          @click="handleLinkClicked(url)"
           >{{ name }}</a
         >
       </li>
