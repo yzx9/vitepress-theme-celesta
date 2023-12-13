@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## **0.6.0**&emsp;<sub><sup>2023-12-13 ([91d0345...826b15b](https://github.com/ACCOUNT/REPOSITORY/compare/91d0345533cc56dc2d68f714e1609d9f8f5122bb...826b15b41c42a9400ec7aaf04805469e6e3866a3?diff=split))</sup></sub>
+
+### Features
+* provide/inject i18n ([91d0345](https://github.com/ACCOUNT/REPOSITORY/commit/91d0345533cc56dc2d68f714e1609d9f8f5122bb))
+* hide entry if there is no such page ([bd3f641](https://github.com/ACCOUNT/REPOSITORY/commit/bd3f641a139fb937e6d9b856ab04d42662122eb9))
+
+### Performance Improvements
+* dynamic layout loading ([826b15b](https://github.com/ACCOUNT/REPOSITORY/commit/826b15b41c42a9400ec7aaf04805469e6e3866a3))
+
+<br>
+
+
 ## **0.0.5**&emsp;<sub><sup>2023-12-12 ([fd4cc0c...ad914c1](https://github.com/ACCOUNT/REPOSITORY/compare/fd4cc0cebe3c8362a1e8d1508908400d6efb166d...ad914c15d83a89f36c9f8689dab5e335e59f794a?diff=split))</sup></sub>
 
 ### Features
