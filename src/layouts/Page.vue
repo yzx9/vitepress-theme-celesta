@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Content } from "vitepress"
 import { computed } from "vue"
-import Catalog from "./components/Catalog.vue"
-import TheHeader from "./components/Header.vue"
-import LayoutBase from "./components/LayoutBase.vue"
-import Navigator from "./components/Navigator.vue"
-import Sidebar from "./components/Sidebar.vue"
-import { useConfig, useData } from "./config/runtime"
-import { resolveAuthor, resolveCreatedAt } from "./frontmatter"
+import Catalog from "../components/Catalog.vue"
+import TheHeader from "../components/Header.vue"
+import LayoutBase from "../components/LayoutBase.vue"
+import Navigator from "../components/Navigator.vue"
+import Sidebar from "../components/Sidebar.vue"
+import { useConfig, useData } from "../config/runtime"
+import { resolveAuthor, resolveCreatedAt } from "../frontmatter"
 
 const data = useData()
 const config = useConfig()

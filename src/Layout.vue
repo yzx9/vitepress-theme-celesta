@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { useData } from "vitepress"
 import { computed, provide, ref, watch } from "vue"
-import About from "./About.vue"
-import Archives from "./Archives.vue"
-import Categories from "./Categories.vue"
-import Home from "./Home.vue"
-import NotFound from "./NotFound.vue"
-import Page from "./Page.vue"
-import Tags from "./Tags.vue"
 import { Layout, resolveLayout } from "./frontmatter"
 import { KEY_I18N, switchI18n } from "./i18n"
+import About from "./layouts/About.vue"
+import Archives from "./layouts/Archives.vue"
+import Categories from "./layouts/Categories.vue"
+import Home from "./layouts/Home.vue"
+import NotFound from "./layouts/NotFound.vue"
+import Page from "./layouts/Page.vue"
+import Tags from "./layouts/Tags.vue"
 
 const { page, frontmatter, localeIndex } = useData()
 

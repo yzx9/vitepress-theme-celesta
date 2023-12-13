@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { useRouter } from "vitepress"
 import { computed } from "vue"
-import Ghost from "./components/Ghost.vue"
-import { useI18n } from "./i18n"
+import Ghost from "../components/Ghost.vue"
+import { useI18n } from "../i18n"
 
 const router = useRouter()
 const i18n = useI18n()

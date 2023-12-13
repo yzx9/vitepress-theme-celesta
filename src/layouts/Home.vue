@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useData } from "vitepress"
-import LayoutBase from "./components/LayoutBase.vue"
-import Posts from "./components/Posts.vue"
-import { data } from "./timeline.data"
+import LayoutBase from "../components/LayoutBase.vue"
+import Posts from "../components/Posts.vue"
+import { data } from "../timeline.data"
 
 const { site } = useData()
 </script>

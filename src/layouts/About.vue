@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Content } from "vitepress"
 import { computed } from "vue"
-import LayoutBase from "./components/LayoutBase.vue"
-import { useConfig, useData } from "./config/runtime"
+import LayoutBase from "../components/LayoutBase.vue"
+import { useConfig, useData } from "../config/runtime"
 
 const { frontmatter } = useData()
 const config = useConfig()
