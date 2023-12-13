@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { useData, useRoute, useRouter } from "vitepress"
 import { computed } from "vue"
+import { useI18n } from "../i18n"
 
 const route = useRoute()
 const router = useRouter()
 const { site } = useData()
+const i18n = useI18n()
 
 // links
 const links = computed(() => [
@@ -17,17 +19,36 @@ const links = computed(() => [
       bold: true,
     },
   ],
-  ["archives", "categories", "tags", "about"].map((a) => ({
-    id: a,
-    name: a.toUpperCase(),
-    link: `/${a}.html`,
-    active: route.path.startsWith(a),
+  ["archives", "categories", "tags", "about"].map((id) => ({
+    id,
+    name: parseName(id),
+    link: `/${id}.html`,
+    active: route.path.startsWith(id),
     bold: false,
   })),
 ])
 
 function handleNav(path: string) {
   router.go(path)
+}
+
+function parseName(id: string): string {
+  switch (id) {
+    case "archives":
+      return i18n.value.archives
+
+    case "categories":
+      return i18n.value.categories
+
+    case "tags":
+      return i18n.value.tags
+
+    case "about":
+      return i18n.value.about
+
+    default:
+      return id.toUpperCase()
+  }
 }
 </script>
 

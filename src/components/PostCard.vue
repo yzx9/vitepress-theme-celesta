@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from "vitepress"
 import { computed } from "vue"
+import { useI18n } from "../i18n"
 import type { Post } from "../posts.data"
 import { data } from "../posts.data"
 
@@ -9,6 +10,7 @@ const props = defineProps<{
 }>()
 
 const router = useRouter()
+const i18n = useI18n()
 
 // TODO: dynamic loading
 const post = computed<Post>(() => data.posts[props.post])
@@ -34,7 +36,7 @@ function handlePostClicked() {
       class="m-4 p-2 px-4 text-center select-none border border-solid border-gray-400 rounded-full text-gray-500 transition-all cursor-pointer hover:text-primary-500 hover:border-primary-500"
       @click="handlePostClicked()"
     >
-      阅读全文
+      {{ i18n.fullText }}
     </button>
   </div>
 </template>

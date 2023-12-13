@@ -1,19 +1,23 @@
 <script lang="ts">
 import type { InjectionKey } from "vue"
 
-export const KEY_ACTIVE_ANCHOR: InjectionKey<Ref<string | null>> = Symbol()
+export const KEY_ACTIVE_ANCHOR: InjectionKey<Ref<string | null>> =
+  Symbol("activeAnchor")
 </script>
 
 <script setup lang="ts">
 import { debounce } from "ts-debounce"
 import { onMounted, onUnmounted, onUpdated, provide, ref, type Ref } from "vue"
 import { useData } from "../config/runtime"
+import { useI18n } from "../i18n"
 import CatalogGroup from "./CatalogGroup.vue"
 
 // magic number to avoid repeated retrieval
 const PAGE_OFFSET = 71
 
 const { page } = useData()
+const i18n = useI18n()
+
 const activeHeader = ref<string | null>(null)
 provide(KEY_ACTIVE_ANCHOR, activeHeader)
 
@@ -95,7 +99,7 @@ function getAnchorTop(anchor: HTMLAnchorElement): number {
 <template>
   <section class="sticky top-12 p-4 mr-8">
     <template v-if="page.headers?.length">
-      <h3 class="pb-1 font-bold">On this page</h3>
+      <h3 class="pb-1 font-bold">{{ i18n.catalog }}</h3>
 
       <CatalogGroup :headers="page.headers" />
     </template>

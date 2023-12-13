@@ -4,11 +4,13 @@ import { useCategories, useTags } from "../composables"
 import { getVisiableColor } from "../composables/color"
 import { useData } from "../config/runtime"
 import { resolveCreatedAt, resolveUpdatedAt } from "../frontmatter"
+import { useI18n } from "../i18n"
 import Categories from "./Categories.vue"
 
 const { page } = useData()
 const categories = useCategories()
 const tags = useTags()
+const i18n = useI18n()
 
 const createdAt = computed(() => resolveCreatedAt(page.value.frontmatter))
 const updatedAtRaw = computed(() => resolveUpdatedAt(page.value.frontmatter))
@@ -44,13 +46,14 @@ const updated = computed(
     </div>
 
     <div v-if="categories.length" class="text-sm">
-      <span class="pr-2">分类于</span><Categories :data="categories" />
+      <span class="pr-2">{{ i18n.classifyAt }}</span
+      ><Categories :data="categories" />
     </div>
 
     <div v-if="updated && updatedAt && updatedAtRaw" class="text-sm">
-      <span class="pr-2">更新于</span
+      <span class="pr-2">{{ i18n.updatedAt }}</span
       ><span :title="updatedAtRaw"
-        >{{ updatedAt.getFullYear() }}- {{ updatedAt.getMonth() + 1 }}-{{
+        >{{ updatedAt.getFullYear() }}-{{ updatedAt.getMonth() + 1 }}-{{
           updatedAt.getDate()
         }}</span
       >

@@ -37,16 +37,6 @@ export type ConfigLocale = {
    * Map from tag to name, key is slug, value is name
    */
   tag?: Record<string, string>
-
-  /**
-   * Not Found Messages
-   */
-  notFound?: string | string[]
-
-  /**
-   * Back To Home Messages
-   */
-  backToHome?: string | string[]
 }
 
 type DeepRequired<T> = {
