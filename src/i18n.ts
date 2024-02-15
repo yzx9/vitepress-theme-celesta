@@ -10,9 +10,10 @@ interface i18n {
   tags: string
   about: string
 
-  // header
+  // page
   classifyAt: string
   updatedAt: string
+  dateFormat: string
 
   // catalog
   catalog: string
@@ -46,6 +47,7 @@ const i18nZh: i18n = {
 
   classifyAt: "分类于",
   updatedAt: "更新于",
+  dateFormat: "yyyy 年 MM 月 dd 日",
 
   catalog: "本页目录",
 
@@ -73,6 +75,7 @@ const i18nEn: i18n = {
 
   classifyAt: "Classify At",
   updatedAt: "Updated At",
+  dateFormat: "dd MMM yyyy",
 
   catalog: "On this page",
 

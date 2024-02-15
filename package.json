@@ -38,6 +38,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "dayjs": "^1.11.10",
     "gray-matter": "^4.0.3",
     "remove-markdown": "^0.5.0",
     "ts-debounce": "^4.0.0"

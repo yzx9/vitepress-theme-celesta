@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import dayjs from "dayjs"
 import { Content } from "vitepress"
 import { computed } from "vue"
 import Catalog from "../components/Catalog.vue"
@@ -8,9 +9,11 @@ import Navigator from "../components/Navigator.vue"
 import Sidebar from "../components/Sidebar.vue"
 import { useConfig, useData } from "../config/runtime"
 import { resolveAuthor, resolveCreatedAt } from "../frontmatter"
+import { useI18n } from "../i18n"
 
 const data = useData()
 const config = useConfig()
+const i18n = useI18n()
 
 const createdAtRaw = computed(() => resolveCreatedAt(data.frontmatter.value))
 const createdAt = computed(() =>
@@ -41,9 +44,7 @@ const author = computed(
           class="text-sm"
           :title="createdAtRaw"
         >
-          {{ createdAt.getFullYear() }}-{{ createdAt.getMonth() + 1 }}-{{
-            createdAt.getDate()
-          }}
+          {{ dayjs(createdAt).format(i18n.dateFormat) }}
         </div>
       </div>
 

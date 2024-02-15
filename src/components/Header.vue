@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import dayjs from "dayjs"
 import { computed } from "vue"
 import { useCategories, useTags } from "../composables"
 import { getVisiableColor } from "../composables/color"
@@ -52,11 +53,9 @@ const updated = computed(
 
     <div v-if="updated && updatedAt && updatedAtRaw" class="text-sm">
       <span class="pr-2">{{ i18n.updatedAt }}</span
-      ><span :title="updatedAtRaw"
-        >{{ updatedAt.getFullYear() }}-{{ updatedAt.getMonth() + 1 }}-{{
-          updatedAt.getDate()
-        }}</span
-      >
+      ><span :title="updatedAtRaw">{{
+        dayjs(updatedAt).format(i18n.dateFormat)
+      }}</span>
     </div>
   </div>
 </template>
