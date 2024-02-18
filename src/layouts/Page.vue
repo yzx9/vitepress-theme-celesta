@@ -8,21 +8,28 @@ import LayoutBase from "../components/LayoutBase.vue"
 import Navigator from "../components/Navigator.vue"
 import Sidebar from "../components/Sidebar.vue"
 import { useConfig, useData } from "../config/runtime"
-import { resolveAuthor, resolveCreatedAt } from "../frontmatter"
+import {
+  resolveAuthor,
+  resolveCreatedAt,
+  resolveLocation,
+} from "../frontmatter"
 import { useI18n } from "../i18n"
 
 const data = useData()
 const config = useConfig()
 const i18n = useI18n()
 
+const author = computed(
+  () => resolveAuthor(data.frontmatter.value) ?? config.value.author
+)
+
 const createdAtRaw = computed(() => resolveCreatedAt(data.frontmatter.value))
 const createdAt = computed(() =>
   createdAtRaw.value ? new Date(createdAtRaw.value) : null
 )
 
-const author = computed(
-  () => resolveAuthor(data.frontmatter) ?? config.value.author
-)
+// TODO: translation
+const location = computed(() => resolveLocation(data.frontmatter.value))
 </script>
 
 <template>
@@ -36,12 +43,16 @@ const author = computed(
         <Content />
       </article>
 
-      <div class="px-10 flex flex-col items-end">
-        <div class="my-2 font-bold">{{ author }}</div>
+      <div class="my-8 px-10 flex flex-col items-end">
+        <div class="theme-font-primary my-8 mx-4 text-2xl">
+          {{ author }}
+        </div>
+
+        <div v-if="location" class="my-2 text-sm">{{ location }}</div>
 
         <div
           v-if="createdAt && createdAtRaw"
-          class="text-sm"
+          class="my-2 text-sm"
           :title="createdAtRaw"
         >
           {{ dayjs(createdAt).format(i18n.dateFormat) }}

@@ -16,9 +16,9 @@ const links = computed(() => [
         {
           id: "home",
           url: data.home,
-          name: site.value.title.toUpperCase(),
+          name: site.value.title,
           active: route.path === "",
-          bold: true,
+          cls: "theme-font-primary font-bold",
         },
       ]
     : [],
@@ -27,7 +27,7 @@ const links = computed(() => [
     url,
     name: parseName(id),
     active: route.path.startsWith(url),
-    bold: false,
+    cls: "",
   })),
 ])
 
@@ -70,7 +70,7 @@ function getEntries(): { id: string; url: string }[] {
   >
     <ul v-for="ls in links" class="flex">
       <li
-        v-for="{ id, url, name, active, bold } in ls"
+        v-for="{ id, url, name, active, cls } in ls"
         :key="`v-navbar-link-${id}`"
         class="navbar__link flex justify-center items-center transition-all font-medium"
         :class="
@@ -81,7 +81,7 @@ function getEntries(): { id: string; url: string }[] {
       >
         <a
           class="h-full px-4 align-middle cursor-pointer"
-          :class="{ 'font-bold': bold }"
+          :class="cls"
           @click="handleLinkClicked(url)"
           >{{ name }}</a
         >

@@ -14,7 +14,7 @@ const navLinks = useNavLinks()
     >
       <div
         v-if="link"
-        class="border-b border-transparent cursor-pointer overflow-hidden whitespace-nowrap text-ellipsis transition-colors hover:border-primary-500 hover:text-primary-500"
+        class="cursor-pointer overflow-hidden whitespace-nowrap text-ellipsis underline decoration-transparent transition-colors hover:text-primary-500 hover:decoration-primary-500"
         :class="cls"
         @click="link.go"
       >

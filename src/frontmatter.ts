@@ -203,6 +203,10 @@ function formatTime(t: string | null | undefined): string | null {
   return t ? new Date(t).toISOString() : null
 }
 
+export function resolveLocation(frontmatter: Frontmatter): string | null {
+  return frontmatter?.location ?? null
+}
+
 export enum Layout {
   home = "home",
   archives = "archives",

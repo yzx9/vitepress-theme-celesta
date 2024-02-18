@@ -13,7 +13,7 @@ const { site } = useData()
       <div
         class="flex flex-col h-screen pb-12 justify-center items-center relative overflow-hidden"
       >
-        <h1 class="home__title text-8xl text-primary-800 pb-10 z-30">
+        <h1 class="theme-font-primary text-8xl text-primary-800 pb-10 z-30">
           {{ site.title }}
         </h1>
 
@@ -30,15 +30,9 @@ const { site } = useData()
 </template>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap");
-
 .home {
   --header-height: 100vh;
   --bg-opacity: 0;
-}
-
-.home__title {
-  font-family: "Kaushan Script", cursive;
 }
 
 .home .navbar__link-home {
