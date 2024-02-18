@@ -1,6 +1,20 @@
 # CHANGELOG
 
-## **0.6.0**&emsp;<sub><sup>2023-12-13 ([91d0345...826b15b](https://github.com/yzx9/vitepress-theme-celesta/compare/91d0345533cc56dc2d68f714e1609d9f8f5122bb...826b15b41c42a9400ec7aaf04805469e6e3866a3?diff=split))</sup></sub>
+## **0.0.7**&emsp;<sub><sup>2024-02-18 ([fac44f9...0c3f582](https://github.com/yzx9/vitepress-theme-celesta/compare/fac44f96a3b9d544228d27b74134e95f94b8032d...0c3f5822c32f69bd3dc146bfdaac29b36cf656bf?diff=split))</sup></sub>
+
+### Features
+
+- imporve date format ([65cd7ed](https://github.com/yzx9/vitepress-theme-celesta/commit/65cd7ed62f8403d03f8b51876ced59261c97ab54))
+- add location and improve styles ([0c3f582](https://github.com/yzx9/vitepress-theme-celesta/commit/0c3f5822c32f69bd3dc146bfdaac29b36cf656bf))
+
+### Bug Fixes
+
+- update date format ([1e97a7d](https://github.com/yzx9/vitepress-theme-celesta/commit/1e97a7df37ba3d4367690ff9f8bec46d433a5da6))
+
+<br>
+
+
+## **0.0.6**&emsp;<sub><sup>2023-12-13 ([91d0345...826b15b](https://github.com/yzx9/vitepress-theme-celesta/compare/91d0345533cc56dc2d68f714e1609d9f8f5122bb...826b15b41c42a9400ec7aaf04805469e6e3866a3?diff=split))</sup></sub>
 
 ### Features
 * provide/inject i18n ([91d0345](https://github.com/yzx9/vitepress-theme-celesta/commit/91d0345533cc56dc2d68f714e1609d9f8f5122bb))
