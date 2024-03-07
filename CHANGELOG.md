@@ -1,10 +1,19 @@
 # CHANGELOG
 
+## **0.0.8**&emsp;<sub><sup>2024-03-07 ([cc62e3a...ae8725a](https://github.com/yzx9/vitepress-theme-celesta/compare/cc62e3a410711ab34eb91672ef56bf17f4d86433...ae8725aa94d6de4d38cbb34f7ea63f905219e187?diff=split))</sup></sub>
+
+### Bug Fixes
+
+- avoid use windows in ssr ([cc62e3a](https://github.com/yzx9/vitepress-theme-celesta/commit/cc62e3a410711ab34eb91672ef56bf17f4d86433))
+
+<br>
+
+
 ## **0.0.7**&emsp;<sub><sup>2024-02-18 ([fac44f9...0c3f582](https://github.com/yzx9/vitepress-theme-celesta/compare/fac44f96a3b9d544228d27b74134e95f94b8032d...0c3f5822c32f69bd3dc146bfdaac29b36cf656bf?diff=split))</sup></sub>
 
 ### Features
 
-- imporve date format ([65cd7ed](https://github.com/yzx9/vitepress-theme-celesta/commit/65cd7ed62f8403d03f8b51876ced59261c97ab54))
+- improve date format ([65cd7ed](https://github.com/yzx9/vitepress-theme-celesta/commit/65cd7ed62f8403d03f8b51876ced59261c97ab54))
 - add location and improve styles ([0c3f582](https://github.com/yzx9/vitepress-theme-celesta/commit/0c3f5822c32f69bd3dc146bfdaac29b36cf656bf))
 
 ### Bug Fixes
