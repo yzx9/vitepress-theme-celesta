@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue"
+import { computed, onMounted, ref, watch } from "vue"
 import Pager from "./Pager.vue"
 import PostCard from "./PostCard.vue"
 
@@ -19,10 +19,12 @@ watch(
   () => (pager.value.current = 0)
 )
 
-watch(
-  () => pager.value.current,
-  () => window.scrollTo(0, root.value?.offsetTop ?? 0)
-)
+onMounted(() => {
+  watch(
+    () => pager.value.current,
+    () => window.scrollTo(0, root.value?.offsetTop ?? 0)
+  )
+})
 
 const slice = computed(() =>
   props.posts.slice(
