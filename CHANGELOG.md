@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## **0.1.0**&emsp;<sub><sup>2024-03-22 ([7d27fc4...7d27fc4](https://github.com/yzx9/vitepress-theme-celesta/compare/7d27fc49a3f4b78b3e70bb15344e600cff6039cb...7d27fc49a3f4b78b3e70bb15344e600cff6039cb?diff=split))</sup></sub>
+
+*no relevant changes*
+
+<br>
+
+
 ## **0.0.8**&emsp;<sub><sup>2024-03-07 ([cc62e3a...ae8725a](https://github.com/yzx9/vitepress-theme-celesta/compare/cc62e3a410711ab34eb91672ef56bf17f4d86433...ae8725aa94d6de4d38cbb34f7ea63f905219e187?diff=split))</sup></sub>
 
 ### Bug Fixes
