@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## **0.1.1**&emsp;<sub><sup>2024-04-23 ([f56eae8...bec66a9](https://github.com/yzx9/vitepress-theme-celesta/compare/f56eae87eb7c0d446d3d5238819ea53c55eb686d...bec66a96c89a544986df83565e1c3c30e10098e4?diff=split))</sup></sub>
+
+### Bug Fixes
+
+- disable async components ([bec66a9](https://github.com/yzx9/vitepress-theme-celesta/commit/bec66a96c89a544986df83565e1c3c30e10098e4))
+
+### Performance Improvements
+
+- avoid import fonts ([f56eae8](https://github.com/yzx9/vitepress-theme-celesta/commit/f56eae87eb7c0d446d3d5238819ea53c55eb686d))
+
+<br>
+
+
 ## **0.1.0**&emsp;<sub><sup>2024-03-22 ([7d27fc4...7d27fc4](https://github.com/yzx9/vitepress-theme-celesta/compare/7d27fc49a3f4b78b3e70bb15344e600cff6039cb...7d27fc49a3f4b78b3e70bb15344e600cff6039cb?diff=split))</sup></sub>
 
 *no relevant changes*
