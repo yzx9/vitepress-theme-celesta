@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useData } from "vitepress"
 import { computed, defineAsyncComponent, provide, ref, watch } from "vue"
+import { useData } from "./config/runtime"
 import { Layout, resolveLayout } from "./frontmatter"
 import { KEY_I18N, switchI18n } from "./i18n"
 
