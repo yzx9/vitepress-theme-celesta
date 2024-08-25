@@ -1,24 +1,17 @@
 <script setup lang="ts">
-import { computed, provide, ref, watch } from "vue"
+import { computed, defineAsyncComponent, provide, ref, watch } from "vue"
 import { useData } from "./config/runtime"
 import { Layout, resolveLayout } from "./frontmatter"
 import { KEY_I18N, switchI18n } from "./i18n"
-import About from "./layouts/About.vue"
-import Archives from "./layouts/Archives.vue"
-import Categories from "./layouts/Categories.vue"
-import Home from "./layouts/Home.vue"
-import NotFound from "./layouts/NotFound.vue"
-import Page from "./layouts/Page.vue"
-import Tags from "./layouts/Tags.vue"
-// const About = defineAsyncComponent(() => import("./layouts/About.vue"))
-// const Archives = defineAsyncComponent(() => import("./layouts/Archives.vue"))
-// const Categories = defineAsyncComponent(
-//   () => import("./layouts/Categories.vue")
-// )
-// const Home = defineAsyncComponent(() => import("./layouts/Home.vue"))
-// const NotFound = defineAsyncComponent(() => import("./layouts/NotFound.vue"))
-// const Page = defineAsyncComponent(() => import("./layouts/Page.vue"))
-// const Tags = defineAsyncComponent(() => import("./layouts/Tags.vue"))
+const About = defineAsyncComponent(() => import("./layouts/About.vue"))
+const Archives = defineAsyncComponent(() => import("./layouts/Archives.vue"))
+const Categories = defineAsyncComponent(
+  () => import("./layouts/Categories.vue")
+)
+const Home = defineAsyncComponent(() => import("./layouts/Home.vue"))
+const NotFound = defineAsyncComponent(() => import("./layouts/NotFound.vue"))
+const Page = defineAsyncComponent(() => import("./layouts/Page.vue"))
+const Tags = defineAsyncComponent(() => import("./layouts/Tags.vue"))
 
 const { page, frontmatter, localeIndex } = useData()
 
